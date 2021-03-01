@@ -67,6 +67,19 @@
         }
       }
 
+      .control-buttons {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 200px;
+        height: 500px;
+      }
+
+      .control-buttons > button {
+        width: 200px;
+        height: 50px;
+      }
+
       .effect-carousel {
         position: fixed !important;
         width: 100%;
@@ -107,7 +120,23 @@
 
     <canvas class="deepar" id="deepar-canvas" oncontextmenu="event.preventDefault()"></canvas>
     <div id="loader-wrapper">
-    <span class="loader"></span></span>
+      <span class="loader"></span></span>
+    </div>
+
+    <div class="control-buttons">
+      <div class="recording">
+        <h2>Recording</h2>
+        <video id="recording" width="160" height="120" autoplay muted></video>
+      </div>
+      <div class="recording">
+        <h2>Screenshot</h2>
+        <canvas id="screenshot" width="160" height="120"></canvas>
+      </div>      
+      <button id="record">Start Recording</button>
+      <button id="play">Play</button>
+      <button id="download">Download Video</button>
+      <button id="take-screenshot">Take Screenshot</button>
+      <button id="download-photo">Download Photo</button>
     </div>
 
     <div class="effect-carousel">
@@ -118,6 +147,8 @@
       <div><img class="thumb" src="thumbs/flowers.png"></div>
       <div><img class="thumb" src="thumbs/koala.png"></div>
       <div><img class="thumb" src="thumbs/lion.png"></div>
+      <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
+      <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
       <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
     </div>
 
@@ -139,7 +170,7 @@
       var deepAR = DeepAR({ 
         canvasWidth: canvasWidth, 
         canvasHeight: canvasHeight,
-        licenseKey: 'your_license_key_goes_here',
+        licenseKey: '33202e9d7691b99b6a496784ae17638617df5724640212b2dd2d82a8ead208423f2af13947591ae0',
         canvas: document.getElementById('deepar-canvas'),
         numberOfFaces: 1,
         libPath: './lib',
@@ -149,8 +180,7 @@
           deepAR.startVideo(true);
 
           // or we can setup the video element externally and call deepAR.setVideoElement (see startExternalVideo function below)
-
-          deepAR.switchEffect(0, 'slot', './effects/background_segmentation', function() {
+          deepAR.switchEffect(0, 'slot', './effects/aviators', function() {
             // effect loaded
           });
         }
@@ -168,7 +198,20 @@
         console.log('camera permission denied');
       };
 
+      // screenshot taken
+      var canvasScreenshot = document.getElementById("screenshot");
+      var context = canvasScreenshot.getContext("2d");
+      var image = new Image();
       deepAR.onScreenshotTaken = function(photo) {
+        image.src = photo;
+        image.onload = function() {
+          // get the scale
+          var scale = Math.min(canvasScreenshot.width / image.width, canvasScreenshot.height / image.height);
+          // get the top left position of the image
+          var x = (canvasScreenshot.width / 2) - (image.width / 2) * scale;
+          var y = (canvasScreenshot.height / 2) - (image.height / 2) * scale;
+          context.drawImage(image, x, y, image.width * scale, image.height * scale);
+        };
         console.log('screenshot taken');
       };
 
@@ -188,45 +231,45 @@
       deepAR.downloadFaceTrackingModel('lib/models-68-extreme.bin');
 
 
-      function startExternalVideo() {
+      // function startExternalVideo() {
 
-        // create video element
-        var video = document.createElement('video');
-        video.muted = true;
-        video.loop = true;
-        video.controls = true;
-        video.setAttribute('playsinline', 'playsinline');
-        video.style.width = '100%';
-        video.style.height = '100%';
+      //   // create video element
+      //   var video = document.createElement('video');
+      //   video.muted = true;
+      //   video.loop = true;
+      //   video.controls = true;
+      //   video.setAttribute('playsinline', 'playsinline');
+      //   video.style.width = '100%';
+      //   video.style.height = '100%';
 
-        // put it somewhere in the DOM
-        var videoContainer = document.createElement('div');
-        videoContainer.appendChild(video);
-        videoContainer.style.width = '1px';
-        videoContainer.style.height = '1px';
-        videoContainer.style.position = 'absolute';
-        videoContainer.style.top = '0px';
-        videoContainer.style.left = '0px';
-        videoContainer.style['z-index'] = '-1';
-        document.body.appendChild(videoContainer);
+      //   // put it somewhere in the DOM
+      //   var videoContainer = document.createElement('div');
+      //   videoContainer.appendChild(video);
+      //   videoContainer.style.width = '1px';
+      //   videoContainer.style.height = '1px';
+      //   videoContainer.style.position = 'absolute';
+      //   videoContainer.style.top = '0px';
+      //   videoContainer.style.left = '0px';
+      //   videoContainer.style['z-index'] = '-1';
+      //   document.body.appendChild(videoContainer);
 
-        navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) {
-          try {
-            video.srcObject = stream;
-          } catch (error) {
-            video.src = URL.createObjectURL(stream);
-          }
+      //   navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) {
+      //     try {
+      //       video.srcObject = stream;
+      //     } catch (error) {
+      //       video.src = URL.createObjectURL(stream);
+      //     }
 
-          setTimeout(function() {
-            video.play();
-          }, 50);
-        }).catch(function(error) {
+      //     setTimeout(function() {
+      //       video.play();
+      //     }, 50);
+      //   }).catch(function(error) {
 
-        });
+      //   });
 
-        // tell the DeepAR SDK about our new video element
-        deepAR.setVideoElement(video, true);
-      }
+      //   // tell the DeepAR SDK about our new video element
+      //   deepAR.setVideoElement(video, true);
+      // }
 
 
       // Position the carousel to cover the canvas
@@ -237,6 +280,21 @@
         carousel.style.marginLeft = (window.innerWidth-width)/2 + "px";
       }
 
+      // take screenshot
+      document.getElementById('take-screenshot').onclick = function() {
+        deepAR.takeScreenshot();
+        console.log('click take-screenshot');        
+      }
+
+      // add download photo
+      document.getElementById('download-photo').onclick = function() {
+        var a = document.createElement('a');
+        a.href = image.src; // add href base64 img
+        a.download = 'photo.png'; // name file
+        document.body.appendChild(a);
+        a.click(); // download file
+        console.log('click download-photo');
+      }
 
       $(document).ready(function() {
         $('.effect-carousel').slick({
@@ -249,21 +307,35 @@
         });
 
         var effects = [
-          './effects/background_segmentation',
-          './effects/aviators',
-          './effects/beard',
-          './effects/dalmatian',
-          './effects/flowers',
-          './effects/koala',
-          './effects/lion',
-          './effects/teddycigar'
+        './effects/background_segmentation',
+        './effects/aviators',
+        './effects/beard',
+        './effects/dalmatian',
+        './effects/flowers',
+        './effects/koala',
+        './effects/lion',
+        './effects/teddycigar',
+        './effects/alien',
+        './effects/scuba'
         ];
 
         $('.effect-carousel').on('afterChange', function(event, slick, currentSlide){
           deepAR.switchEffect(0, 'slot', effects[currentSlide]);
-        });
+        });        
+      });
+      </script>
+      
+      <!-- script option 1 video recording (adapter-latest optionals)-->
+      <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
+      <!-- <script src="./script1.js"></script> -->
 
-      });      
-    </script>
+      <!-- script option 2 video recording -->
+      <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
+      <!-- only for script4 (usage type: 'canvas')-->
+      <script src="https://www.webrtc-experiment.com/screenshot.js"></script>
+      <script src="./script2.js"></script>
+      <!-- <script src="./script3.js"></script> -->
+      <!-- <script src="./script4.js"></script> -->
+      <!-- <script src="./script5.js"></script> -->
   </body>
 </html>
