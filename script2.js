@@ -50,7 +50,7 @@ async function stopRecordingCallback() {
     recordButton.textContent = 'Start Recording';
     playButton.disabled = false;
     downloadButton.disabled = false;
-    video.controls = false;
+    video.controls = true;
     
     // reset recorder's state
     await mediaRecorder.reset();
@@ -100,8 +100,8 @@ async function startRecordingCallback() {
     recordButton.textContent = 'Stop Recording';
     playButton.disabled = true;
     downloadButton.disabled = true;
-    mediaRecorder.onstop = handleStop;
-    mediaRecorder.ondataavailable = handleDataAvailable;
+    // mediaRecorder.onstop = handleStop;
+    // mediaRecorder.ondataavailable = handleDataAvailable;
     await mediaRecorder.startRecording(); // start recording
     console.log('MediaRecorder started', mediaRecorder);
     
