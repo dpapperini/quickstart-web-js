@@ -15,23 +15,23 @@ downloadButton.onclick = download;
 playButton.disabled = true;
 downloadButton.disabled = true;
 
-// function handleSourceOpen(event) {
-//   console.log('MediaSource opened');
-//   sourceBuffer = mediaRecorder.addSourceBuffer('video/webm; codecs="vp8"');
-//   console.log('Source buffer: ', sourceBuffer);
-// }
+function handleSourceOpen(event) {
+  console.log('MediaSource opened');
+  sourceBuffer = mediaRecorder.addSourceBuffer('video/webm; codecs="vp8"');
+  console.log('Source buffer: ', sourceBuffer);
+}
 
-// function handleDataAvailable(event) {
-//   if (event.data && event.data.size > 0) {
-//     recordedBlobs.push(event.data);
-//   }
-// }
+function handleDataAvailable(event) {
+  if (event.data && event.data.size > 0) {
+    recordedBlobs.push(event.data);
+  }
+}
 
-// function handleStop(event) {
-//   console.log('Recorder stopped: ', event);
-//   const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
-//   video.src = window.URL.createObjectURL(superBuffer);
-// }
+function handleStop(event) {
+  console.log('Recorder stopped: ', event);
+  const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+  video.src = window.URL.createObjectURL(superBuffer);
+}
 
 async function toggleRecordingCallback() {
   if (recordButton.textContent === 'Start Recording') {
@@ -43,7 +43,7 @@ async function toggleRecordingCallback() {
 
 async function stopRecordingCallback() {
     await mediaRecorder.stopRecording();
-    video.srcObject = null;
+    // video.srcObject = null;
     recordedBlobs = await mediaRecorder.getBlob();
     video.src = window.URL.createObjectURL(recordedBlobs);
     mediaRecorder.stream.getTracks(t => t.stop());
@@ -86,9 +86,12 @@ async function startRecordingCallback() {
     stream = canvas.captureStream(); // frames per second
     console.log('Started stream capture from canvas element: ', stream);
     // stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
-    video.srcObject = stream;
+    // video.srcObject = stream;
     const options = {
-        type: 'video'
+        type: 'video',
+        mimeType: 'video/webm',
+        timeSlice: 1000,
+        recorderType: MediaStreamRecorder
     };
     // RecordRTCPromisesHandler adds promises support in RecordRTC. Try a demo here
     mediaRecorder = new RecordRTCPromisesHandler(stream, options);
@@ -100,8 +103,8 @@ async function startRecordingCallback() {
     recordButton.textContent = 'Stop Recording';
     playButton.disabled = true;
     downloadButton.disabled = true;
-    // mediaRecorder.onstop = handleStop;
-    // mediaRecorder.ondataavailable = handleDataAvailable;
+    mediaRecorder.onstop = handleStop;
+    mediaRecorder.ondataavailable = handleDataAvailable;
     await mediaRecorder.startRecording(); // start recording
     console.log('MediaRecorder started', mediaRecorder);
     
