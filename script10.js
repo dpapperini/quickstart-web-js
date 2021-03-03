@@ -35,6 +35,16 @@ function stopRecording() {
     downloadButton.disabled = false;
 }
 
+function stopRecordingCallback() {
+    recordedBlobs = mediaRecorder.getBlob();
+    video.src = URL.createObjectURL(recordedBlobs);
+    video.controls = true;
+    // change text recordButton and enable playButton and downloadButton
+    recordButton.textContent = 'Start Recording';
+    playButton.disabled = false;
+    downloadButton.disabled = false;
+}
+
 function play() {
   video.play();
 }
@@ -57,9 +67,12 @@ function download() {
 function startRecording() {
     mediaRecorder = new RecordRTC(canvas.captureStream(), { type: 'video' });
     // mediaRecorder = new RecordRTC(canvas, { type: 'canvas' });
+    let recordingDuration = 15000; // 15 sec max
+    mediaRecorder.setRecordingDuration(recordingDuration).onRecordingStopped(stopRecordingCallback);
     mediaRecorder.startRecording();
     // change text recordButton and disabled playButton and downloadButton
     recordButton.textContent = 'Stop Recording';
     playButton.disabled = true;
     downloadButton.disabled = true;
+    video.controls = true;
 }
