@@ -62,7 +62,7 @@ function stopRecordingCallback() {
       type: 'video/webm'
   });
   video.src = URL.createObjectURL(blob);
-  recorder.stream.stop();
+  //recorder.stream.stop();
   recorder = null;
 }
 

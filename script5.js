@@ -1,8 +1,9 @@
 // add video recording
 const canvas = document.querySelector('canvas#deepar-canvas');
 const video = document.querySelector('video#recording');
-const streamDeppAR = canvas.captureStream();
+const stream = canvas.captureStream();
 let recorder; // globally accessible
+let recordedBlobs = [];
 
 const recordButton = document.querySelector('button#record');
 const playButton = document.querySelector('button#play');
@@ -23,15 +24,16 @@ function toggleRecordingCallback() {
 
 function stopRecordingCallback() {
     recorder.stopRecording(function() {
-      var blob = this.getBlob();
+      var blob = recorder.getBlob();
       console.log('Recorded Blobs: ', blob);
-      recorder.getDataURL(function(dataURI) {
-        video.src = dataURI;
+      //recorder.getDataURL(function(dataURI) {
+        video.src = URL.createObjectURL(blob);
         video.controls = true;
         playButton.disabled = false;
         downloadButton.disabled = false;
         recordButton.textContent = 'Start Recording';
-      });
+        video.play();
+      //});
     });
 
     // video.srcObject = null;
@@ -49,14 +51,21 @@ function stopRecordingCallback() {
     // recorder = null;
 }
 
+function play() {
+  video.play();
+}
+
 function startRecordingCallback() {
     // let stream = streamDeppAR; // await navigator.mediaDevices.getUserMedia({video: true, audio: false});
     // video.srcObject = stream;
-    recorder = new RecordRTC(streamDeppAR, {
+    recorder = new RecordRTC(stream, {
         type: 'video',
-        mimeType: 'video/webm',
-        recorderType: MediaStreamRecorder,
+        // mimeType: 'video/webm',
+        // recorderType: MediaStreamRecorder,
         disableLogs: false,
+        ondataavailable: function(blob) {
+          recordedBlobs.push(blob);
+        }
     });
     recorder.startRecording();
 
@@ -65,7 +74,7 @@ function startRecordingCallback() {
     recordButton.textContent = 'Stop Recording';
     
     // helps releasing camera on stopRecording
-   recorder.stream = streamDeppAR;
+   recorder.stream = stream;
 
     // if you want to access internal recorder
     const internalRecorder = recorder.getInternalRecorder();
