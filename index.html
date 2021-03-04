@@ -125,6 +125,7 @@
     </div>
 
     <div class="control-buttons">
+      <button id="shareFB">shareFB</button>
       <div class="recording">
         <h2>Recording</h2>
         <video id="recording" width="160" height="120" class="video-js" autoplay muted></video>
@@ -132,7 +133,7 @@
       <div class="recording">
         <h2>Screenshot</h2>
         <canvas id="screenshot" width="160" height="120"></canvas>
-      </div>      
+      </div>
       <button id="record">Start Recording</button>
       <button id="play">Play</button>
       <button id="download">Download Video</button>
@@ -171,7 +172,8 @@
       var deepAR = DeepAR({ 
         canvasWidth: canvasWidth, 
         canvasHeight: canvasHeight,
-        licenseKey: '33202e9d7691b99b6a496784ae17638617df5724640212b2dd2d82a8ead208423f2af13947591ae0',
+        // licenseKey: '33202e9d7691b99b6a496784ae17638617df5724640212b2dd2d82a8ead208423f2af13947591ae0',
+        licenseKey: 'c19e1e875e97c54d9d5f761f7aed6f8e1037a3c4cc9d314a8fc16e4c9a66543184ce233a62d69e20',
         canvas: document.getElementById('deepar-canvas'),
         numberOfFaces: 1,
         libPath: './lib',
