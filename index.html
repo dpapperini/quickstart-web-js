@@ -125,7 +125,7 @@
     </div>
 
     <div class="control-buttons">
-      <button id="shareFB">shareFB</button>
+      <!-- <button id="shareFB">shareFB</button> -->
       <div class="recording">
         <h2>Recording</h2>
         <video id="recording" width="160" height="120" class="video-js" autoplay muted></video>
@@ -141,23 +141,6 @@
       <button id="download-photo">Download Photo</button>
     </div>
 
-    <div class="effect-carousel">
-      <div><img class="thumb" src="thumbs/galaxy.png"></div>
-      <div><img class="thumb" src="thumbs/aviators.png"></div>
-      <div><img class="thumb" src="thumbs/beard.png"></div>
-      <div><img class="thumb" src="thumbs/dalmatian.png"></div>
-      <div><img class="thumb" src="thumbs/flowers.png"></div>
-      <div><img class="thumb" src="thumbs/koala.png"></div>
-      <div><img class="thumb" src="thumbs/lion.png"></div>
-      <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
-      <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
-      <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
-    </div>
-
-
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="lib/deepar.js"></script>
     <script type="text/javascript">
 
@@ -172,8 +155,8 @@
       var deepAR = DeepAR({ 
         canvasWidth: canvasWidth, 
         canvasHeight: canvasHeight,
-        // licenseKey: '33202e9d7691b99b6a496784ae17638617df5724640212b2dd2d82a8ead208423f2af13947591ae0',
-        licenseKey: 'c19e1e875e97c54d9d5f761f7aed6f8e1037a3c4cc9d314a8fc16e4c9a66543184ce233a62d69e20',
+        // licenseKey: '33202e9d7691b99b6a496784ae17638617df5724640212b2dd2d82a8ead208423f2af13947591ae0', // http://localhost:8888 => use python server.py
+        licenseKey: 'c19e1e875e97c54d9d5f761f7aed6f8e1037a3c4cc9d314a8fc16e4c9a66543184ce233a62d69e20', // https://quickstart-web-js.test/ => use valet
         canvas: document.getElementById('deepar-canvas'),
         numberOfFaces: 1,
         libPath: './lib',
@@ -183,7 +166,8 @@
           deepAR.startVideo(true);
 
           // or we can setup the video element externally and call deepAR.setVideoElement (see startExternalVideo function below)
-          deepAR.switchEffect(0, 'slot', './effects/aviators', function() {
+          // change alien string with one of other present in effects
+          deepAR.switchEffect(0, 'slot', './effects/alien', function() {
             // effect loaded
           });
         }
@@ -233,56 +217,6 @@
 
       deepAR.downloadFaceTrackingModel('lib/models-68-extreme.bin');
 
-
-      // function startExternalVideo() {
-
-      //   // create video element
-      //   var video = document.createElement('video');
-      //   video.muted = true;
-      //   video.loop = true;
-      //   video.controls = true;
-      //   video.setAttribute('playsinline', 'playsinline');
-      //   video.style.width = '100%';
-      //   video.style.height = '100%';
-
-      //   // put it somewhere in the DOM
-      //   var videoContainer = document.createElement('div');
-      //   videoContainer.appendChild(video);
-      //   videoContainer.style.width = '1px';
-      //   videoContainer.style.height = '1px';
-      //   videoContainer.style.position = 'absolute';
-      //   videoContainer.style.top = '0px';
-      //   videoContainer.style.left = '0px';
-      //   videoContainer.style['z-index'] = '-1';
-      //   document.body.appendChild(videoContainer);
-
-      //   navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) {
-      //     try {
-      //       video.srcObject = stream;
-      //     } catch (error) {
-      //       video.src = URL.createObjectURL(stream);
-      //     }
-
-      //     setTimeout(function() {
-      //       video.play();
-      //     }, 50);
-      //   }).catch(function(error) {
-
-      //   });
-
-      //   // tell the DeepAR SDK about our new video element
-      //   deepAR.setVideoElement(video, true);
-      // }
-
-
-      // Position the carousel to cover the canvas
-      if (window.innerWidth > window.innerHeight) {
-        var width = Math.floor(window.innerHeight*0.66);
-        var carousel = document.getElementsByClassName('effect-carousel')[0];
-        carousel.style.width = width + 'px';
-        carousel.style.marginLeft = (window.innerWidth-width)/2 + "px";
-      }
-
       // take screenshot
       document.getElementById('take-screenshot').onclick = function() {
         deepAR.takeScreenshot();
@@ -298,55 +232,8 @@
         a.click(); // download file
         console.log('click download-photo');
       }
-
-      $(document).ready(function() {
-        $('.effect-carousel').slick({
-          slidesToShow: 1,
-          centerMode: true,
-          focusOnSelect: true,
-          arrows: false,
-          accessibility: false,
-          variableWidth: true
-        });
-
-        var effects = [
-        './effects/background_segmentation',
-        './effects/aviators',
-        './effects/beard',
-        './effects/dalmatian',
-        './effects/flowers',
-        './effects/koala',
-        './effects/lion',
-        './effects/teddycigar',
-        './effects/alien',
-        './effects/scuba'
-        ];
-
-        $('.effect-carousel').on('afterChange', function(event, slick, currentSlide){
-          deepAR.switchEffect(0, 'slot', effects[currentSlide]);
-        });        
-      });
       </script>
-      
-      <!-- script option 1 video recording (adapter-latest optionals)-->
-      <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
-      <!-- <script src="./script1.js"></script> -->
-
-      <!-- <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script> -->
-      <!-- script option 2 video recording -->
       <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
-      <!-- only for script4 (usage type: 'canvas')-->
-      <script src="https://www.webrtc-experiment.com/screenshot.js"></script>
-      <!-- <script src="./script2.js"></script> -->
-      <!-- <script src="./script3.js"></script> -->
-      <!-- <script src="./script4.js"></script> -->
-      <!-- <script src="./script5.js"></script> -->
-      <!-- <script src="./script6.js"></script> -->
-      <!-- <script src="./script7.js"></script> -->
-      <!-- <script src="./script8.js"></script> -->
-      <!-- <script src="./script9.js"></script> -->
-      <script src="./script10.js"></script>
-      <!-- script5.js works chrome, safari, firefox -->
-      <!-- https://addpipe.com/media-recorder-api-demo/ -->
+      <script src="./videoRecording.js"></script>
   </body>
 </html>
