@@ -139,7 +139,7 @@
       <button id="download-photo">Download Photo</button>
     </div>
 
-    <script type="text/javascript" src="lib/deepar.js"></script>
+    <script type="text/javascript" src="./lib/deepar.js"></script>
     <script type="text/javascript">
 
       var canvasHeight = window.innerHeight;
@@ -158,7 +158,7 @@
         licenseKey: '1d70afb07ba987e22170192d6e87e78b089d8383d595ec13c2d865899ed3421517edb3ee7e52b1ff', // https://google.weareserver.it
         canvas: document.getElementById('deepar-canvas'),
         numberOfFaces: 1,
-        libPath: 'lib',
+        libPath: './lib',
         segmentationInfoZip: 'segmentation.zip',
         onInitialize: function() {
           // start video immediately after the initalization, mirror = true
@@ -233,6 +233,6 @@
       }
       </script>
       <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
-      <script src="videoRecording.js"></script>
+      <script src="./videoRecording.js"></script>
   </body>
 </html>
