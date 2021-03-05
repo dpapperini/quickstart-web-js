@@ -113,8 +113,6 @@
         width: 130px;
       }
     </style>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 
   </head>
   <body>
@@ -141,7 +139,7 @@
       <button id="download-photo">Download Photo</button>
     </div>
 
-    <script type="text/javascript" src="lib/deepar.js"></script>
+    <script type="text/javascript" src="./lib/deepar.js"></script>
     <script type="text/javascript">
 
       var canvasHeight = window.innerHeight;
