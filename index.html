@@ -138,7 +138,7 @@
       <button id="download-photo">Download Photo</button>
     </div>
 
-    <script type="text/javascript" src="./lib/deepar.js"></script>
+    <script type="text/javascript" src="lib/deepar.js"></script>
     <script type="text/javascript">
 
       var canvasHeight = window.innerHeight;
@@ -157,7 +157,7 @@
         licenseKey: '1d70afb07ba987e22170192d6e87e78b089d8383d595ec13c2d865899ed3421517edb3ee7e52b1ff', // https://google.weareserver.it
         canvas: document.getElementById('deepar-canvas'),
         numberOfFaces: 1,
-        libPath: './lib',
+        libPath: 'lib',
         segmentationInfoZip: 'segmentation.zip',
         onInitialize: function() {
           // start video immediately after the initalization, mirror = true
@@ -165,7 +165,7 @@
 
           // or we can setup the video element externally and call deepAR.setVideoElement (see startExternalVideo function below)
           // change alien string with one of other present in effects
-          deepAR.switchEffect(0, 'slot', './effects/alien', function() {
+          deepAR.switchEffect(0, 'slot', 'effects/alien', function() {
             // effect loaded
           });
         }
