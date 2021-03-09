@@ -23,13 +23,27 @@
     <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
 
+    <style>
+      html{
+        height: 100%;
+        width: 100%;
+      }
+      body {
+          height: 100%;
+          width: 100%;
+      }
+      model-viewer{
+        height:90%;
+        width:100%;
+      }
+    </style>
   </head>
   <body>
 
     <div class="control-buttons control-buttons-center">
       <h1>Select Your Experience</h1>
-      <button id="3d-face-filter" class="3d-face-filter share-button" type="button" title="3D Face Filter">3D Face Filter</button>
-      <button id="3d-model-viewer"class="3d-model-viewer share-button" type="button" title="3D Model Viewer">3D Model Viewer</button>
+      <button id="3d-face-filter" class="3d-face-filter" type="button" title="3D Face Filter">3D Face Filter</button>
+      <button id="3d-model-viewer"class="3d-model-viewer" type="button" title="3D Model Viewer">3D Model Viewer</button>
     </div>
 
     <model-viewer
