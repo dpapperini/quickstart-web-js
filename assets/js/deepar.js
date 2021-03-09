@@ -10,7 +10,8 @@ var deepAR = DeepAR({
   canvasWidth: canvasWidth, 
   canvasHeight: canvasHeight,
   // licenseKey: '33202e9d7691b99b6a496784ae17638617df5724640212b2dd2d82a8ead208423f2af13947591ae0',
-  licenseKey: 'c19e1e875e97c54d9d5f761f7aed6f8e1037a3c4cc9d314a8fc16e4c9a66543184ce233a62d69e20',
+  // licenseKey: 'c19e1e875e97c54d9d5f761f7aed6f8e1037a3c4cc9d314a8fc16e4c9a66543184ce233a62d69e20',
+  licenseKey: '1d70afb07ba987e22170192d6e87e78b089d8383d595ec13c2d865899ed3421517edb3ee7e52b1ff', // https://google.weareserver.it/
   canvas: document.getElementById('deepar-canvas'),
   numberOfFaces: 1,
   libPath: './assets/deepar/lib',
