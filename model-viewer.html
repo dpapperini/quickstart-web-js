@@ -23,7 +23,7 @@
     <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
 
-    <!-- <style>
+    <style>
       html{
         height: 100%;
         width: 100%;
@@ -36,7 +36,7 @@
         height:90%;
         width:100%;
       }
-    </style> -->
+    </style>
   </head>
   <body>
 
@@ -49,16 +49,25 @@
     <model-viewer
       id="model-viewer"
       src="./assets/models/NonnoAgenore_004.glb"
-      poster="./assets/models/NonnoAgenore.png"
-      ar
-      ar-modes="webxr scene-viewer quick-look"
-      ar-scale="auto"
       camera-controls
+      ar
+      ar-modes="scene-viewer webxr quick-look"
+      ar-scale="auto"
+      camera-orbit="1.056e-14deg 75deg 7.494m"
+      poster="./assets/models/NonnoAgenore.png"
       alt="A 3D model of Nonno Agenore"
+      min-camera-orbit="auto auto 7.494m"
+      max-camera-orbit="auto auto auto"
+      auto-rotate min-field-of-view="45deg"
+      max-field-of-view="auto"
       ios-src="./assets/models/NonnoAgenore_002.usdz"
       shadow-intensity="1"
+      auto-rotate
     >
     <!-- ar-scale="auto/fixed" auto-rotate -->
+      <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+      </div>
       <button slot="ar-button" id="ar-button">
         View in your space
       </button>
@@ -108,7 +117,7 @@
         console.log('Loaded new items');
       });
       // start observing
-      intersectionObserver.observe(document.querySelector('.scrollerFooter'));
+      //intersectionObserver.observe(document.querySelector('.scrollerFooter'));
 
       // model-viewer error
       document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
