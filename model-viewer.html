@@ -23,7 +23,7 @@
     <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
 
-    <style>
+    <!-- <style>
       html{
         height: 100%;
         width: 100%;
@@ -36,7 +36,7 @@
         height:90%;
         width:100%;
       }
-    </style>
+    </style> -->
   </head>
   <body>
 
@@ -52,19 +52,22 @@
       poster="./assets/models/NonnoAgenore.png"
       ar
       ar-modes="webxr scene-viewer quick-look"
-      ar-scale="fixed"
+      ar-scale="auto"
       camera-controls
       alt="A 3D model of Nonno Agenore"
       ios-src="./assets/models/NonnoAgenore_002.usdz"
-      auto-rotate
       shadow-intensity="1"
     >
+    <!-- ar-scale="auto/fixed" auto-rotate -->
       <button slot="ar-button" id="ar-button">
-        👋 Activate AR
+        View in your space
       </button>
       <!-- <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
         👋 Activate AR
       </button> -->
+      <div id="ar-prompt">
+        <img src="./assets/images/hand.png">
+      </div>
       <div id="error" class="hide">AR is not supported on this device</div>
     </model-viewer>
 
@@ -107,6 +110,7 @@
       // start observing
       intersectionObserver.observe(document.querySelector('.scrollerFooter'));
 
+      // model-viewer error
       document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
         if(event.detail.status === 'failed'){
           const error = document.querySelector("#error");
