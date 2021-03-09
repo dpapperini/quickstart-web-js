@@ -48,12 +48,20 @@
         text-decoration: none;
         white-space: nowrap;
         border-radius: 4px;
-        border: 1px solid #ddd;
         cursor: pointer;
       }
       
       button:hover, .button:hover {
         border-color: #cdd;
+        background-color: #cdd;
+      }
+
+      button:disabled,
+      button[disabled],
+      button:disabled:hover,
+      .button[disabled]:hover {
+        background-color: rgba(239, 239, 239, 0.3);
+        border-color: rgba(118, 118, 118, 0.3);
       }
       
       .share-button, .copy-link {
@@ -203,6 +211,7 @@
       .control-buttons > button {
         width: 200px;
         height: 50px;
+        margin: 0.125rem 0;
       }
 
       .effect-carousel {
@@ -237,9 +246,12 @@
       .slick-slide {
         width: 130px;
       }
+      .slick-slider {
+        z-index: 1;
+      }
     </style>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+    <!-- <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" /> -->
 
   </head>
   <body>
@@ -328,15 +340,6 @@
         </svg>
         <span>Share</span>
       </button>
-      <button scope="public_profile,email" onlogin="checkLoginState();">Login FB</button>
-      <div id="status"></div>
-
-      <button id="upload">Upload</button>
-      <button id="feedBtn" class="btn btn-success clearfix">Share Feed</button>
-      <button id="shareBtn" class="btn btn-success clearfix">Share Dialog</button>
-      <button id="ogBtn" class="btn btn-success clearfix">Simple OG Dialog</button>
-      <button id="requestsBtn" class="btn btn-success clearfix">Basic Request Dialog</button>
-      <!-- <button id="shareFB">shareFB</button> -->
     </div>
 
     <div class="effect-carousel">
@@ -351,10 +354,6 @@
       <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
       <div><img class="thumb" src="thumbs/teddy_cigar.png"></div>
     </div>
-
-    <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/it_IT/all.js"></script>
     
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -434,48 +433,6 @@
 
       deepAR.downloadFaceTrackingModel('lib/models-68-extreme.bin');
 
-
-      // function startExternalVideo() {
-
-      //   // create video element
-      //   var video = document.createElement('video');
-      //   video.muted = true;
-      //   video.loop = true;
-      //   video.controls = true;
-      //   video.setAttribute('playsinline', 'playsinline');
-      //   video.style.width = '100%';
-      //   video.style.height = '100%';
-
-      //   // put it somewhere in the DOM
-      //   var videoContainer = document.createElement('div');
-      //   videoContainer.appendChild(video);
-      //   videoContainer.style.width = '1px';
-      //   videoContainer.style.height = '1px';
-      //   videoContainer.style.position = 'absolute';
-      //   videoContainer.style.top = '0px';
-      //   videoContainer.style.left = '0px';
-      //   videoContainer.style['z-index'] = '-1';
-      //   document.body.appendChild(videoContainer);
-
-      //   navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) {
-      //     try {
-      //       video.srcObject = stream;
-      //     } catch (error) {
-      //       video.src = URL.createObjectURL(stream);
-      //     }
-
-      //     setTimeout(function() {
-      //       video.play();
-      //     }, 50);
-      //   }).catch(function(error) {
-
-      //   });
-
-      //   // tell the DeepAR SDK about our new video element
-      //   deepAR.setVideoElement(video, true);
-      // }
-
-
       // Position the carousel to cover the canvas
       if (window.innerWidth > window.innerHeight) {
         var width = Math.floor(window.innerHeight*0.66);
@@ -529,26 +486,10 @@
       });
       </script>
       
-      <!-- script option 1 video recording (adapter-latest optionals)-->
+      <!-- script video recording (adapter-latest optionals)-->
       <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
-      <!-- <script src="./script1.js"></script> -->
-
-      <!-- <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script> -->
-      <!-- script option 2 video recording -->
       <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
-      <!-- only for script4 (usage type: 'canvas')-->
-      <script src="https://www.webrtc-experiment.com/screenshot.js"></script>
-      <!-- <script src="./script2.js"></script> -->
-      <!-- <script src="./script3.js"></script> -->
-      <!-- <script src="./script4.js"></script> -->
-      <!-- <script src="./script5.js"></script> -->
-      <!-- <script src="./script6.js"></script> -->
-      <!-- <script src="./script7.js"></script> -->
-      <!-- <script src="./script8.js"></script> -->
-      <!-- <script src="./script9.js"></script> -->
       <script src="./script10.js"></script>
       <script src="./share.js"></script>
-      <!-- script5.js works chrome, safari, firefox -->
-      <!-- https://addpipe.com/media-recorder-api-demo/ -->
   </body>
 </html>
