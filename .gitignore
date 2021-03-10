@@ -1,1 +1,8 @@
 .DS_Store
+/node_modules
+.env
+.env.backup
+.phpunit.result.cache
+.idea
+npm-debug.log
+yarn-error.log
