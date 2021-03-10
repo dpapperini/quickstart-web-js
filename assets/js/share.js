@@ -19,3 +19,18 @@ shareButton.addEventListener('click', event => {
 closeButton.addEventListener('click', event => {
   shareDialog.classList.remove('is-open');
 });
+
+// $("#shareButtonLabel").jsSocials({
+//   showCount: false,
+//   showLabel: true,
+//   shares: [
+//       "email",
+//       "twitter",
+//       "facebook",
+//       "googleplus",
+//       "linkedin",
+//       { share: "pinterest", label: "Pin this" },
+//       "stumbleupon",
+//       "whatsapp"
+//   ]
+// });
