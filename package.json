@@ -1,0 +1,47 @@
+{
+  "name": "quickstart-web-js",
+  "version": "1.0.0",
+  "description": "- Go to https://developer.deepar.ai, sign up, create the project and the Web app, copy the license key and paste it to index.html (instead of your_license_key_goes_here string) - Download the SDK from https://developer.deepar.ai and copy the deepar.js, deepar.wasm and models-68-extreme.bin to lib folder - Open terminal and go to example folder - Run python server.py in terminal - Open browser and enter \"http://localhost:8888\" in the address bar",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/webpack-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/webpack-mix/setup/webpack.config.js",
+    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --https --config=node_modules/webpack-mix/setup/webpack.config.js",
+    "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/webpack-mix/setup/webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpapperini/quickstart-web-js.git"
+  },
+  "keywords": [
+    "deepar"
+  ],
+  "author": {
+    "name": "Daniele Papperini",
+    "email": "daniele.papperini@wearesocial.net",
+    "url": "https://wearesocial.it"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dpapperini/quickstart-web-js/issues"
+  },
+  "homepage": "https://github.com/dpapperini/quickstart-web-js#readme",
+  "devDependencies": {
+    "@google/model-viewer": "^1.6.0",
+    "@webcomponents/webcomponentsjs": "^2.5.0",
+    "axios": "^0.21.1",
+    "focus-visible": "^5.2.0",
+    "intersection-observer": "^0.12.0",
+    "jquery": "^3.6.0",
+    "jquery-migrate": "^3.3.2",
+    "recordrtc": "^5.6.2",
+    "resize-observer-polyfill": "^1.5.1",
+    "resolve-url-loader": "^3.1.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^8.0.2",
+    "slick-carousel": "^1.8.1",
+    "vue-template-compiler": "^2.6.12",
+    "webpack-mix": "^3.0.0"
+  }
+}
